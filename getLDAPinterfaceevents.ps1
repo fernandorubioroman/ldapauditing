@@ -5,5 +5,5 @@ foreach ($domain in $domains){
 $dcs+=get-addomaincontroller -filter * -server $domain
 }
 $dcsinsite=$dcs |where site -eq $sitename
-$ldapevents=$dcsinsite | select -ExpandProperty hostname| Start-ParallelExecution -script "getldapevents.ps1" -ScriptFolder C:\findhardcodedDCs  -Verbose
-$ldapevents.Values 
+$ldapevents=$dcsinsite | select -ExpandProperty hostname| Start-ParallelExecution -script "getldapevents.ps1" -ScriptFolder C:\ldapauditing  -Verbose
+$ldapevents | Export-Clixml -Path C:\ldapauditing\ldapevents.xml
